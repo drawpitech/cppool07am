@@ -5,13 +5,13 @@
 ** Federation
 */
 
-#ifndef PPOOL07AM_FEDERATION_HPP
-#define PPOOL07AM_FEDERATION_HPP
+#pragma once
 
 #include <iostream>
 #include <string>
 #include <utility>
 
+#include "Destination.hpp"
 #include "WarpSystem.hpp"
 
 namespace Federation {
@@ -22,13 +22,36 @@ class Ship {
     void setupCore(WarpSystem::Core *core);
     void checkCore();
 
+    bool move(int warp, Destination d) {
+        if (!canMove(warp, d))
+            return false;
+        _location = d;
+        return true;
+    }
+    bool move(int warp) { return move(warp, _location); }
+    bool move(Destination d) {
+        if (!canMove(d))
+            return false;
+        _location = d;
+        return true;
+    }
+    bool move() { return move(_home); }
+
    private:
     int _length;
     int _width;
     std::string _name;
     short _maxWarp = 0;
     WarpSystem::Core *_core = nullptr;
+    Destination _home = VULCAN;
+    Destination _location = _home;
 
+    bool canMove(Destination d) const {
+        return d != _location && _core->checkReactor()->isStable();
+    }
+    bool canMove(int warp, Destination d) const {
+        return warp <= _maxWarp && canMove(d);
+    }
     void displayInfo(const std::string &str) const {
         std::cout << _name << ": " << str << "\n";
     }
@@ -63,6 +86,20 @@ class Ship {
     void setShield(int shield) { _shield = shield; }
     int getTorpedo() const { return _photonTorpedo; }
     void setTorpedo(int torpedo) { _photonTorpedo = torpedo; }
+    bool move(int warp, Destination d) {
+        if (!canMove(warp, d))
+            return false;
+        _location = d;
+        return true;
+    }
+    bool move(int warp) { return move(warp, _location); }
+    bool move(Destination d) {
+        if (!canMove(d))
+            return false;
+        _location = d;
+        return true;
+    }
+    bool move() { return move(_home); }
 
    private:
     int _length;
@@ -73,7 +110,15 @@ class Ship {
     Captain *_captain = nullptr;
     int _shield = 100;
     int _photonTorpedo;
+    Destination _home = EARTH;
+    Destination _location = _home;
 
+    bool canMove(Destination d) const {
+        return d != _location && _core->checkReactor()->isStable();
+    }
+    bool canMove(int warp, Destination d) const {
+        return warp <= _maxWarp && canMove(d);
+    }
     void displayInfo(const std::string &str) const {
         std::cout << "USS " << _name << ": " << str << "\n";
     }
@@ -89,5 +134,3 @@ class Ensign {
     std ::string _name;
 };
 }  // namespace Federation::Starfleet
-
-#endif /* PPOOL07AM_FEDERATION_HPP */
