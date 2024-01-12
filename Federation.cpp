@@ -41,3 +41,8 @@ void Federation::Starfleet::Ship::checkCore() {
     std::string stability = _core->checkReactor()->isStable() ? "stable" : "unstable";
     this->displayInfo("The core is " + stability + " at the time.");
 }
+
+void Federation::Starfleet::Ship::promote(Captain *captain) {
+    _captain = captain;
+    std::cout << _captain->getName() << ": I'm glad to be the captain of the USS " << _name << ".\n";
+}
