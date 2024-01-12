@@ -14,19 +14,21 @@
 
 namespace Borg {
 class Ship {
-  public:
+   public:
     explicit Ship();
 
     void setupCore(WarpSystem::Core *core);
     void checkCore();
 
-  private:
+   private:
     int _side = 300;
     short _maxWarp = 9;
     WarpSystem::Core *_core = nullptr;
 
-    static void displayInfo(const std::string &str) { std::cout << str << "\n"; }
+    static void displayInfo(const std::string &str) {
+        std::cout << str << "\n";
+    }
 };
-} // namespace Borg
+}  // namespace Borg
 
 #endif /* PPOOL07AM_BORG_HPP */

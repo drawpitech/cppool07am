@@ -10,8 +10,10 @@
 /* Federation::Ship */
 Federation::Ship::Ship(int length, int width, std::string name)
     : _length(length), _width(width), _name(std::move(name)) {
-    std::cout << "The independent ship " << _name << " just finished its construction.\n"
-              << "It is " << _length << " m in length and " << _width << " m in width.\n";
+    std::cout << "The independent ship " << _name
+              << " just finished its construction.\n"
+              << "It is " << _length << " m in length and " << _width
+              << " m in width.\n";
 }
 
 void Federation::Ship::setupCore(WarpSystem::Core *core) {
@@ -20,15 +22,22 @@ void Federation::Ship::setupCore(WarpSystem::Core *core) {
 }
 
 void Federation::Ship::checkCore() {
-    std::string stability = _core->checkReactor()->isStable() ? "stable" : "unstable";
+    std::string stability =
+        _core->checkReactor()->isStable() ? "stable" : "unstable";
     this->displayInfo("The core is " + stability + " at the time.");
 }
 
 /* Federation::Starfleet::Ship */
-Federation::Starfleet::Ship::Ship(int length, int width, std::string name, short maxWarp)
-    : _length(length), _width(width), _name(std::move(name)), _maxWarp(maxWarp) {
+Federation::Starfleet::Ship::Ship(
+    int length, int width, std::string name, short maxWarp, int topedo)
+    : _length(length),
+      _width(width),
+      _name(std::move(name)),
+      _maxWarp(maxWarp),
+      _photonTorpedo(topedo) {
     std::cout << "The ship USS " << _name << " has been finished.\n"
-              << "It is " << _length << " m in length and " << _width << " m in width.\n"
+              << "It is " << _length << " m in length and " << _width
+              << " m in width.\n"
               << "It can go to Warp " << _maxWarp << "!\n";
 }
 
@@ -38,11 +47,13 @@ void Federation::Starfleet::Ship::setupCore(WarpSystem::Core *core) {
 }
 
 void Federation::Starfleet::Ship::checkCore() {
-    std::string stability = _core->checkReactor()->isStable() ? "stable" : "unstable";
+    std::string stability =
+        _core->checkReactor()->isStable() ? "stable" : "unstable";
     this->displayInfo("The core is " + stability + " at the time.");
 }
 
 void Federation::Starfleet::Ship::promote(Captain *captain) {
     _captain = captain;
-    std::cout << _captain->getName() << ": I'm glad to be the captain of the USS " << _name << ".\n";
+    std::cout << _captain->getName()
+              << ": I'm glad to be the captain of the USS " << _name << ".\n";
 }

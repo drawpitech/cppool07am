@@ -16,66 +16,78 @@
 
 namespace Federation {
 class Ship {
-  public:
+   public:
     explicit Ship(int length, int width, std::string name);
 
     void setupCore(WarpSystem::Core *core);
     void checkCore();
 
-  private:
+   private:
     int _length;
     int _width;
     std::string _name;
     short _maxWarp = 0;
     WarpSystem::Core *_core = nullptr;
 
-    void displayInfo(const std::string &str) const { std::cout << _name << ": " << str << "\n"; }
+    void displayInfo(const std::string &str) const {
+        std::cout << _name << ": " << str << "\n";
+    }
 };
 
-} // namespace Federation
+}  // namespace Federation
 
 namespace Federation::Starfleet {
 class Captain {
-  public:
+   public:
     Captain(std::string name) : _name(std::move(name)) {}
 
     std::string getName() const { return _name; }
     int getAge() const { return _age; }
     void setAge(int age) { _age = age; }
 
-  private:
+   private:
     std::string _name;
     int _age = 0;
 };
 
 class Ship {
-  public:
-    explicit Ship(int length, int width, std::string name, short maxWarp);
+   public:
+    explicit Ship(
+        int length, int width, std::string name, short maxWarp,
+        int torpedo = 0);
 
     void setupCore(WarpSystem::Core *core);
     void checkCore();
     void promote(Captain *captain);
+    int getShield() const { return _shield; }
+    void setShield(int shield) { _shield = shield; }
+    int getTorpedo() const { return _photonTorpedo; }
+    void setTorpedo(int torpedo) { _photonTorpedo = torpedo; }
 
-  private:
+   private:
     int _length;
     int _width;
     std::string _name;
     short _maxWarp;
     WarpSystem::Core *_core = nullptr;
     Captain *_captain = nullptr;
+    int _shield = 100;
+    int _photonTorpedo;
 
-    void displayInfo(const std::string &str) const { std::cout << "USS " << _name << ": " << str << "\n"; }
+    void displayInfo(const std::string &str) const {
+        std::cout << "USS " << _name << ": " << str << "\n";
+    }
 };
 
 class Ensign {
-  public:
+   public:
     explicit Ensign(std::string name) : _name(std::move(name)) {
         std::cout << "Ensign " << _name << ", awaiting orders.\n";
     }
 
-  private:
+   private:
     std ::string _name;
 };
-} // namespace Federation::Starfleet
+}  // namespace Federation::Starfleet
 
 #endif /* PPOOL07AM_FEDERATION_HPP */

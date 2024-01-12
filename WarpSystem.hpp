@@ -10,22 +10,22 @@
 
 namespace WarpSystem {
 class QuantumReactor {
-  public:
+   public:
     bool isStable() const { return _stability; }
     void setStability(bool stability) { _stability = stability; }
 
-  private:
+   private:
     bool _stability = true;
 };
 class Core {
-  public:
+   public:
     Core(QuantumReactor *core) : _coreReactor(core) {}
 
     QuantumReactor *checkReactor() const { return _coreReactor; }
 
-  private:
+   private:
     QuantumReactor *_coreReactor;
 };
-} // namespace WarpSystem
+}  // namespace WarpSystem
 
 #endif /* PPOOL07AM_WARPSYSTEM_HPP */
